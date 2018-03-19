@@ -2,7 +2,7 @@
 // @flow
 function fetchFortune(callback) {
 
-    fetch('https://2p7pqcehh3.execute-api.eu-central-1.amazonaws.com/production')
+    fetch('https://fortune.sashimiblade.com/')
         .then((response) => response.json())
         .then((fortune) => {
             callback(fortune);
