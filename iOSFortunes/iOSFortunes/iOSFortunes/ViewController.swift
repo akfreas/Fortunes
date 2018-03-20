@@ -88,12 +88,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func fortuneButtonPressed() {
-        fetchFortune()
+        Actions.fetchFortune { [weak self] (fortune, luckyNumbers) -> (Void) in
+            self?.setFortune(fortune: fortune, luckyNumbers: luckyNumbers)
+        }
     }
     
     func setFortune(fortune: String, luckyNumbers: String) {
         let fontColor = ViewController.darkRedColor
-        let fortuneString = NSMutableAttributedString(string:"☺ " + fortune + " ☺", attributes: [
+        let fortuneString = NSMutableAttributedString(string: fortune, attributes: [
             NSAttributedStringKey.font: UIFont(name: "AmericanTypewriter", size: 18.0) ?? UIFont.systemFont(ofSize: 18.0),
             NSAttributedStringKey.foregroundColor: fontColor
             ])
@@ -106,6 +108,11 @@ class ViewController: UIViewController {
         
         fortuneTextView.isHidden = false
         fortuneTextView.attributedText = fortuneString
+        
+        updateTextViewForCurrentText()
+    }
+    
+    func updateTextViewForCurrentText() {
         let fixedWidth = fortuneTextView.frame.size.width
         fortuneTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         let newSize = fortuneTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
@@ -113,22 +120,5 @@ class ViewController: UIViewController {
         newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
         fortuneTextView.frame = newFrame
     }
-    
-    func fetchFortune() {
-        guard let apiURL = URL(string: "https://fortune.sashimiblade.com/") else { return }
-        let task = URLSession.shared.dataTask(with: apiURL) { [weak self] (data, response, error) in
-            guard let data = data else { return }
-            guard let parsedResponse = try? JSONSerialization.jsonObject(with: data, options: []) as? Dictionary<String, String> else { return }
-            DispatchQueue.main.async {
-                let fortune = parsedResponse?["fortune_text"] ?? "No Fortune for U!"
-                let luckyNumbers = parsedResponse?["lucky_numbers"] ?? "U r unlucky!!"
-                self?.setFortune(fortune: fortune, luckyNumbers: luckyNumbers)
-            }
-        }
-        
-        task.resume()
-    }
-
-
 }
 

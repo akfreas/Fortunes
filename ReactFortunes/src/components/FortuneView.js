@@ -21,11 +21,14 @@ const font = Platform.select({
 export default class FortuneView extends Component {
 
     render() {
-        console.log(this.props.myFortune)
         return (
-            <View style={styles.mainView}>
-                <Text style={styles.fortuneText}>☺{this.props.myFortune.fortune_text}☺</Text>
-                <Text style={styles.fortuneLuckyNumbers}>Lucky numbers: {this.props.myFortune.lucky_numbers}</Text>
+            <View style={styles.mainView} accessibilityLabel={'Fortune View'}>
+                <Text style={styles.fortuneText}>
+                    {this.props.myFortune.fortune_text}
+                </Text>
+                <Text style={styles.fortuneLuckyNumbers}>
+                    Lucky numbers: {this.props.myFortune.lucky_numbers}
+                </Text>
             </View>
         )
     }

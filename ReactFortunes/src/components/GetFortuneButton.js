@@ -15,7 +15,7 @@ export default class GetFortuneButton extends Component<Props> {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.container} accessibilityLabel={'Get Fortune Button'}>
                 <TouchableOpacity onPress={this.props.onPress}>
                     <Text style={styles.buttonText}>New Fortune</Text>
                 </TouchableOpacity>

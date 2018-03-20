@@ -35,10 +35,8 @@ export default class MainScreen extends Component {
     render() {
         return (
 
-            <View style={{width: '100%', height: '100%'}}>
-                <View style={styles.titleView}>
-                    <Text style={styles.titleViewText}>React Fortunes</Text>
-                </View>
+            <View style={{width: '100%', height: '100%'}} accessibilityLabel={'Main Screen'}>
+                <Text style={styles.titleViewText}>React Fortunes</Text>
                 {this.state.currentFortune && 
                     <FortuneView style={styles.fortuneView} myFortune={this.state.currentFortune}/>
                 }
@@ -54,16 +52,16 @@ const styles = StyleSheet.create({
         top: 10,
         alignContent: 'center',
         margin: 10,
-
     }, 
     titleViewText: {
+        marginTop: 30,
+        margin: 10,
         fontSize: 48,
         color: '#CC0000',
         textAlign: 'center',
         fontFamily: 'karate'
     },
     fortuneView: {
-        padding: 30
     },
     getFortuneButton: {
         padding: 50,

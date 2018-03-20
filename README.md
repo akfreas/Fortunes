@@ -54,11 +54,21 @@ const instructions = Platform.select({
 });
 ```
 
-Now we can get to the meat of our code, which will defines the UI and how we handle state changes.
+Now we can get to the meat of our code, which will define the UI and how we handle state changes.
+
+Let's start with the component definintion.
 
 ```
 type Props = {};
 export default class App extends Component<Props> {
+```
+
+In this line, we are defining an object called `App` that extends the React base class `Component`. The `<Props>` that follow define the types of properties that can be passedto the component. This is done using [Facebook Flow](https://flow.org/en/docs/react/components/). We'll come back to this later when we define some more components. 
+
+
+
+Next, we find the `render()` function. This is where most of the magic happens in React. The output of this function will define the view heirarchy and what information is passed to the sub components. We don't have an adequate comparison to this method on iOS, simply because
+```
   render() {
     return (
       <View style={styles.container}>
