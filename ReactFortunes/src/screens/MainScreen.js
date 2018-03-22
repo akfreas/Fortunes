@@ -22,11 +22,11 @@ export default class MainScreen extends Component {
         }
     } 
 
-    fetchFortuneButtonPressed = () => {
-        fetchFortune(this.setFortune);
+    fetchFortuneButtonPressed() {
+        fetchFortune(this.setFortune.bind(this));
     }
 
-    setFortune = (fortune) => {
+    setFortune(fortune) {
         this.setState({
             currentFortune: fortune
         });
@@ -35,10 +35,12 @@ export default class MainScreen extends Component {
     render() {
         return (
 
-            <View style={{width: '100%', height: '100%'}} accessibilityLabel={'Main Screen'}>
-                <Text style={styles.titleViewText}>React Fortunes</Text>
+            <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'green' }} accessibilityLabel={'Main Screen'}>
+                <View style={styles.titleView}>
+                    <Text style={styles.titleViewText}>React Fortunes</Text>
+                </View>
                 {this.state.currentFortune && 
-                    <FortuneView style={styles.fortuneView} myFortune={this.state.currentFortune}/>
+                    <FortuneView myFortune={this.state.currentFortune}/>
                 }
                 <GetFortuneButton style={styles.getFortuneButton} onPress={this.fetchFortuneButtonPressed.bind(this)}/>
             </View>
@@ -60,8 +62,6 @@ const styles = StyleSheet.create({
         color: '#CC0000',
         textAlign: 'center',
         fontFamily: 'karate'
-    },
-    fortuneView: {
     },
     getFortuneButton: {
         padding: 50,
